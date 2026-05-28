@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Questionnaire de fin de programme — En Scène</title>
+  <style>
+    :root {
+      --fond: #f8f1e9;
+      --papier: #fffaf4;
+      --texte: #2f2926;
+      --muted: #6f625b;
+      --accent: #9a4f3f;
+      --accent-2: #d7a36f;
+      --ligne: #e7d8c9;
+      --ombre: rgba(60, 42, 31, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Georgia, 'Times New Roman', serif;
+      background: linear-gradient(180deg, #f3e3d2 0%, var(--fond) 40%, #fffaf4 100%);
+      color: var(--texte);
+      line-height: 1.6;
+    }
+
+    header {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 34px 20px 18px;
+      text-align: center;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 7px 14px;
+      border: 1px solid var(--accent-2);
+      border-radius: 999px;
+      color: var(--accent);
+      background: rgba(255, 250, 244, 0.75);
+      font-size: 0.95rem;
+      letter-spacing: 0.03em;
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2rem, 5vw, 3.9rem);
+      line-height: 1.05;
+      font-weight: 500;
+      color: #3a2822;
+    }
+
+    .intro {
+      max-width: 760px;
+      margin: 18px auto 0;
+      color: var(--muted);
+      font-size: 1.08rem;
+    }
+
+    .photos {
+      max-width: 1050px;
+      margin: 28px auto 36px;
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .photos img {
+      width: 100%;
+      height: 310px;
+      object-fit: cover;
+      border-radius: 24px;
+      box-shadow: 0 16px 40px var(--ombre);
+      border: 8px solid rgba(255, 250, 244, 0.8);
+      background: #ead8c7;
+    }
+
+    main {
+      max-width: 920px;
+      margin: 0 auto 60px;
+      padding: 0 20px;
+    }
+
+    form {
+      background: var(--papier);
+      border: 1px solid var(--ligne);
+      border-radius: 28px;
+      box-shadow: 0 18px 50px var(--ombre);
+      padding: clamp(22px, 4vw, 46px);
+    }
+
+    .notice {
+      background: #f3e7da;
+      border-left: 5px solid var(--accent);
+      padding: 16px 18px;
+      border-radius: 16px;
+      color: #544741;
+      margin-bottom: 30px;
+    }
+
+    section {
+      padding: 28px 0;
+      border-top: 1px solid var(--ligne);
+    }
+
+    section:first-of-type {
+      border-top: none;
+      padding-top: 0;
+    }
+
+    h2 {
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      margin: 0 0 22px;
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .question {
+      margin: 22px 0 28px;
+    }
+
+    label.question-title,
+    .question-title {
+      display: block;
+      font-weight: bold;
+      font-size: 1.05rem;
+      margin-bottom: 10px;
+      color: #342a26;
+    }
+
+    .hint {
+      color: var(--muted);
+      font-size: 0.94rem;
+      margin-top: -4px;
+      margin-bottom: 10px;
+    }
+
+    .options {
+      display: grid;
+      gap: 8px;
+      margin: 10px 0 12px;
+    }
+
+    .options label {
+      display: flex;
+      align-items: flex-start;
+      gap: 9px;
+      background: #fffdf9;
+      border: 1px solid #eaded1;
+      border-radius: 14px;
+      padding: 9px 11px;
+      cursor: pointer;
+    }
+
+    .options label:hover {
+      border-color: var(--accent-2);
+      background: #fff8f0;
+    }
+
+    input[type="radio"],
+    input[type="checkbox"] {
+      margin-top: 5px;
+      accent-color: var(--accent);
+    }
+
+    textarea,
+    input[type="text"] {
+      width: 100%;
+      border: 1px solid #ddcdbf;
+      border-radius: 16px;
+      background: #fffdf9;
+      padding: 12px 14px;
+      font-family: Arial, sans-serif;
+      font-size: 1rem;
+      color: var(--texte);
+    }
+
+    textarea {
+      min-height: 92px;
+      resize: vertical;
+    }
+
+    input[type="text"]:focus,
+    textarea:focus {
+      outline: 2px solid rgba(154, 79, 63, 0.2);
+      border-color: var(--accent);
+    }
+
+    .three-words {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .submit-zone {
+      text-align: center;
+      padding-top: 24px;
+    }
+
+    button {
+      border: none;
+      background: var(--accent);
+      color: white;
+      padding: 15px 30px;
+      border-radius: 999px;
+      font-size: 1.08rem;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 12px 24px rgba(154, 79, 63, 0.22);
+    }
+
+    button:hover {
+      background: #813f32;
+    }
+
+    .small {
+      color: var(--muted);
+      font-size: 0.92rem;
+      margin-top: 14px;
+    }
+
+    footer {
+      text-align: center;
+      color: var(--muted);
+      padding: 0 20px 45px;
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 760px) {
+      .photos {
+        grid-template-columns: 1fr;
+      }
+
+      .photos img {
+        height: 250px;
+      }
+
+      .three-words {
+        grid-template-columns: 1fr;
+      }
+
+      form {
+        border-radius: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="badge">Programme En Scène</div>
+    <h1>Questionnaire de fin de programme</h1>
+    <p class="intro">Ce questionnaire nous aide à comprendre ce que le programme En Scène vous a apporté. Il n’y a pas de bonne ou de mauvaise réponse : vous pouvez répondre avec vos mots, simplement.</p>
+  </header>
+
+  <div class="photos" aria-label="Photos du programme En Scène">
+    <img src="troupe.jpeg" alt="Photo de la troupe En Scène" />
+    <img src="restau.jpeg" alt="Moment partagé autour d’un repas" />
+  </div>
+
+  <main>
+    <form action="https://formspree.io/f/xojbrenw" method="POST">
+      <input type="hidden" name="_subject" value="Nouveau questionnaire En Scène" />
+
+      <div class="notice">
+        Vos réponses nous aideront à faire le bilan qualitatif du programme et à témoigner de ce qui a été vécu tout au long de l’année.
+      </div>
+
+      <section>
+        <h2>Avant de commencer</h2>
+        <div class="question">
+          <label class="question-title" for="prenom">Votre prénom</label>
+          <input type="text" id="prenom" name="Prénom" />
+        </div>
+      </section>
+
+      <section>
+        <h2>1. Votre expérience générale</h2>
+        <div class="question">
+          <div class="question-title">1. Comment avez-vous vécu cette aventure En Scène ?</div>
+          <div class="options">
+            <label><input type="radio" name="1. Expérience générale" value="Très bien" /> Très bien</label>
+            <label><input type="radio" name="1. Expérience générale" value="Bien" /> Bien</label>
+            <label><input type="radio" name="1. Expérience générale" value="Moyennement" /> Moyennement</label>
+            <label><input type="radio" name="1. Expérience générale" value="Difficilement" /> Difficilement</label>
+            <label><input type="radio" name="1. Expérience générale" value="Je ne sais pas" /> Je ne sais pas</label>
+          </div>
+          <textarea name="1. Explication" placeholder="Pouvez-vous expliquer en quelques mots ?"></textarea>
+        </div>
+        <div class="question">
+          <label class="question-title" for="q2">2. Qu’est-ce qui vous a le plus marqué·e dans le programme ?</label>
+          <textarea id="q2" name="2. Ce qui a le plus marqué"></textarea>
+        </div>
+        <div class="question">
+          <div class="question-title">3. Y a-t-il un moment que vous garderez particulièrement en mémoire ?</div>
+          <div class="options">
+            <label><input type="radio" name="3. Moment en mémoire" value="Oui" /> Oui</label>
+            <label><input type="radio" name="3. Moment en mémoire" value="Non" /> Non</label>
+            <label><input type="radio" name="3. Moment en mémoire" value="Je ne sais pas" /> Je ne sais pas</label>
+          </div>
+          <textarea name="3. Lequel" placeholder="Si oui, lequel ?"></textarea>
+        </div>
+      </section>
+
+      <section>
+        <h2>2. Le processus du programme</h2>
+        <div class="question">
+          <div class="question-title">4. Comment avez-vous vécu le déroulement du programme sur l’année ?</div>
+          <div class="options">
+            <label><input type="radio" name="4. Déroulement sur l'année" value="Très bien" /> Très bien</label>
+            <label><input type="radio" name="4. Déroulement sur l'année" value="Bien" /> Bien</label>
+            <label><input type="radio" name="4. Déroulement sur l'année" value="Par moments difficile" /> Par moments difficile</label>
+            <label><input type="radio" name="4. Déroulement sur l'année" value="Trop long" /> Trop long</label>
+            <label><input type="radio" name="4. Déroulement sur l'année" value="Trop court" /> Trop court</label>
+            <label><input type="radio" name="4. Déroulement sur l'année" value="Je ne sais pas" /> Je ne sais pas</label>
+          </div>
+          <textarea name="4. Explication déroulement" placeholder="Pouvez-vous expliquer ?"></textarea>
+        </div>
+
+        <div class="question">
+          <div class="question-title">5. Avez-vous eu l’impression de traverser différentes étapes au fil du programme ?</div>
+          <div class="options">
+            <label><input type="radio" name="5. Étapes traversées" value="Oui" /> Oui</label>
+            <label><input type="radio" name="5. Étapes traversées" value="Un peu" /> Un peu</label>
+            <label><input type="radio" name="5. Étapes traversées" value="Non" /> Non</label>
+            <label><input type="radio" name="5. Étapes traversées" value="Je ne sais pas" /> Je ne sais pas</label>
+          </div>
+          <div class="hint">Si oui, lesquelles ?</div>
+          <div class="options">
+            <label><input type="checkbox" name="5. Types d'étapes" value="Découverte" /> Découverte</label>
+            <label><input type="checkbox" name="5. Types d'étapes" value="Apprivoisement du groupe" /> Apprivoisement du groupe</label>
+            <label><input type="checkbox" name="5. Types d'étapes" value="Prise de confiance" /> Prise de confiance</label>
+            <label><input type="checkbox" name="5. Types d'étapes" value="Doutes ou résistances" /> Doutes ou résistances</label>
+            <label><input type="checkbox" name="5. Types d'étapes" value="Dépassement de soi" /> Dépassement de soi</label>
+            <label><input type="checkbox" name="5. Types d'étapes" value="Création collective" /> Création collective</label>
+            <label><input type="checkbox" name="5. Types d'étapes" value="Fierté / accomplissement" /> Fierté / accomplissement</label>
+          </div>
+          <input type="text" name="5. Autre étape" placeholder="Autre étape..." />
+        </div>
+
+        <div class="question">
+          <div class="question-title">6. Le rythme du programme vous a-t-il semblé adapté ?</div>
+          <div class="options">
+            <label><input type="radio" name="6. Rythme adapté" value="Oui" /> Oui</label>
+            <label><input type="radio" name="6. Rythme adapté" value="Plutôt oui" /> Plutôt oui</label>
+            <label><input type="radio" name="6. Rythme adapté" value="Pas toujours" /> Pas toujours</label>
+            <label><input type="radio" name="6. Rythme adapté" value="Non" /> Non</label>
+            <label><input type="radio" name="6. Rythme adapté" value="Je ne sais pas" /> Je ne sais pas</label>
+          </div>
+          <textarea name="6. Rythme aide difficulté" placeholder="Qu’est-ce qui vous a aidé·e dans ce rythme ? Qu’est-ce qui a été plus difficile ?"></textarea>
+        </div>
+
+        <div class="question">
+          <div class="question-title">7. Est-ce que votre manière de participer a évolué au fil du programme ?</div>
+          <div class="options">
+            <label><input type="radio" name="7. Participation évoluée" value="Oui beaucoup" /> Oui beaucoup</label>
+            <label><input type="radio" name="7. Participation évoluée" value="Oui un peu" /> Oui un peu</label>
+            <label><input type="radio" name="7. Participation évoluée" value="Pas vraiment" /> Pas vraiment</label>
+            <label><input type="radio" name="7. Participation évoluée" value="Non" /> Non</label>
+            <label><input type="radio" name="7. Participation évoluée" value="Je ne sais pas" /> Je ne sais pas</label>
+          </div>
+          <textarea name="7. Comment participation évoluée" placeholder="Si oui, comment ?"></textarea>
+        </div>
+
+        <div class="question">
+          <div class="question-title">8. Y a-t-il eu un moment de bascule, un déclic ou une étape importante pour vous ?</div>
+          <div class="options">
+            <label><input type="radio" name="8. Déclic" value="Oui" /> Oui</label>
+            <label><input type="radio" name="8. Déclic" value="Non" /> Non</label>
+            <label><input type="radio" name="8. Déclic" value="Je ne sais pas" /> Je ne sais pas</label>
+          </div>
+          <textarea name="8. Récit du déclic" placeholder="Si oui, pouvez-vous le raconter ?"></textarea>
+        </div>
+
+        <div class="question">
+          <label class="question-title" for="q9">9. Qu’est-ce qui vous a aidé·e à rester engagé·e dans le programme jusqu’au bout ?</label>
+          <textarea id="q9" name="9. Ce qui a aidé à rester engagé"></textarea>
+        </div>
+      </section>
+
+      <section>
+        <h2>3. Le groupe et la place de chacun·e</h2>
+        <div class="question"><div class="question-title">10. Vous êtes-vous senti·e accueilli·e dans le groupe ?</div><div class="options"><label><input type="radio" name="10. Accueil dans le groupe" value="Oui complètement" /> Oui, complètement</label><label><input type="radio" name="10. Accueil dans le groupe" value="Plutôt oui" /> Plutôt oui</label><label><input type="radio" name="10. Accueil dans le groupe" value="Pas toujours" /> Pas toujours</label><label><input type="radio" name="10. Accueil dans le groupe" value="Non" /> Non</label><label><input type="radio" name="10. Accueil dans le groupe" value="Je ne sais pas" /> Je ne sais pas</label></div></div>
+        <div class="question"><div class="question-title">11. Vous êtes-vous senti·e écouté·e et respecté·e ?</div><div class="options"><label><input type="radio" name="11. Écouté respecté" value="Oui complètement" /> Oui, complètement</label><label><input type="radio" name="11. Écouté respecté" value="Plutôt oui" /> Plutôt oui</label><label><input type="radio" name="11. Écouté respecté" value="Pas toujours" /> Pas toujours</label><label><input type="radio" name="11. Écouté respecté" value="Non" /> Non</label><label><input type="radio" name="11. Écouté respecté" value="Je ne sais pas" /> Je ne sais pas</label></div></div>
+        <div class="question"><div class="question-title">12. Avez-vous osé prendre votre place dans le groupe ?</div><div class="options"><label><input type="radio" name="12. Prendre sa place" value="Plus qu'avant" /> Plus qu’avant</label><label><input type="radio" name="12. Prendre sa place" value="Un peu plus qu'avant" /> Un peu plus qu’avant</label><label><input type="radio" name="12. Prendre sa place" value="Pas vraiment" /> Pas vraiment</label><label><input type="radio" name="12. Prendre sa place" value="C'était difficile" /> C’était difficile</label><label><input type="radio" name="12. Prendre sa place" value="Je ne sais pas" /> Je ne sais pas</label></div></div>
+        <div class="question"><div class="question-title">13. Le groupe vous a-t-il aidé·e à vous sentir plus en confiance ?</div><div class="options"><label><input type="radio" name="13. Groupe confiance" value="Oui" /> Oui</label><label><input type="radio" name="13. Groupe confiance" value="Un peu" /> Un peu</label><label><input type="radio" name="13. Groupe confiance" value="Non" /> Non</label><label><input type="radio" name="13. Groupe confiance" value="Je ne sais pas" /> Je ne sais pas</label></div><textarea name="13. Exemple groupe confiance" placeholder="Pouvez-vous donner un exemple ?"></textarea></div>
+      </section>
+
+      <section>
+        <h2>4. Expression, corps, émotions</h2>
+        <div class="question"><div class="question-title">14. Pendant le programme, avez-vous pu exprimer ce que vous ressentiez ?</div><div class="options"><label><input type="radio" name="14. Expression ressentis" value="Oui facilement" /> Oui, facilement</label><label><input type="radio" name="14. Expression ressentis" value="Oui mais avec difficulté" /> Oui, mais avec difficulté</label><label><input type="radio" name="14. Expression ressentis" value="Pas vraiment" /> Pas vraiment</label><label><input type="radio" name="14. Expression ressentis" value="Non" /> Non</label><label><input type="radio" name="14. Expression ressentis" value="Je ne sais pas" /> Je ne sais pas</label></div></div>
+        <div class="question"><div class="question-title">15. Les exercices de théâtre, de mouvement, d’écriture ou de création vous ont-ils aidé·e ?</div><div class="options"><label><input type="radio" name="15. Exercices aidants" value="Oui beaucoup" /> Oui beaucoup</label><label><input type="radio" name="15. Exercices aidants" value="Oui un peu" /> Oui un peu</label><label><input type="radio" name="15. Exercices aidants" value="Pas vraiment" /> Pas vraiment</label><label><input type="radio" name="15. Exercices aidants" value="Non" /> Non</label><label><input type="radio" name="15. Exercices aidants" value="Je ne sais pas" /> Je ne sais pas</label></div><div class="hint">Si oui, qu’est-ce que cela vous a permis ?</div><div class="options"><label><input type="checkbox" name="15. Ce que cela a permis" value="Mieux sentir mon corps" /> Mieux sentir mon corps</label><label><input type="checkbox" name="15. Ce que cela a permis" value="Mieux comprendre mes émotions" /> Mieux comprendre mes émotions</label><label><input type="checkbox" name="15. Ce que cela a permis" value="Oser parler" /> Oser parler</label><label><input type="checkbox" name="15. Ce que cela a permis" value="Oser bouger" /> Oser bouger</label><label><input type="checkbox" name="15. Ce que cela a permis" value="Oser être regardé·e" /> Oser être regardé·e</label><label><input type="checkbox" name="15. Ce que cela a permis" value="Me sentir plus vivant·e" /> Me sentir plus vivant·e</label><label><input type="checkbox" name="15. Ce que cela a permis" value="Me sentir moins seul·e" /> Me sentir moins seul·e</label></div><input type="text" name="15. Autre apport" placeholder="Autre..." /></div>
+        <div class="question"><div class="question-title">16. Avez-vous découvert quelque chose sur vous-même ?</div><div class="options"><label><input type="radio" name="16. Découverte sur soi" value="Oui" /> Oui</label><label><input type="radio" name="16. Découverte sur soi" value="Non" /> Non</label><label><input type="radio" name="16. Découverte sur soi" value="Je ne sais pas" /> Je ne sais pas</label></div><textarea name="16. Quoi découverte sur soi" placeholder="Si oui, quoi ?"></textarea></div>
+      </section>
+
+      <section>
+        <h2>5. Confiance, estime de soi, ressources</h2>
+        <div class="question"><div class="question-title">17. Après ce programme, vous sentez-vous plus confiant·e ?</div><div class="options"><label><input type="radio" name="17. Plus confiant" value="Oui beaucoup" /> Oui beaucoup</label><label><input type="radio" name="17. Plus confiant" value="Oui un peu" /> Oui un peu</label><label><input type="radio" name="17. Plus confiant" value="Pas vraiment" /> Pas vraiment</label><label><input type="radio" name="17. Plus confiant" value="Non" /> Non</label><label><input type="radio" name="17. Plus confiant" value="Je ne sais pas" /> Je ne sais pas</label></div></div>
+        <div class="question"><div class="question-title">18. Est-ce que le programme vous a aidé·e à vous sentir plus capable ?</div><div class="options"><label><input type="radio" name="18. Plus capable" value="Oui" /> Oui</label><label><input type="radio" name="18. Plus capable" value="Un peu" /> Un peu</label><label><input type="radio" name="18. Plus capable" value="Non" /> Non</label><label><input type="radio" name="18. Plus capable" value="Je ne sais pas" /> Je ne sais pas</label></div></div>
+        <div class="question"><div class="question-title">19. Est-ce que vous avez l’impression d’avoir développé de nouvelles ressources ?</div><div class="options"><label><input type="radio" name="19. Nouvelles ressources" value="Oui" /> Oui</label><label><input type="radio" name="19. Nouvelles ressources" value="Un peu" /> Un peu</label><label><input type="radio" name="19. Nouvelles ressources" value="Non" /> Non</label><label><input type="radio" name="19. Nouvelles ressources" value="Je ne sais pas" /> Je ne sais pas</label></div><div class="hint">Si oui, lesquelles ?</div><div class="options"><label><input type="checkbox" name="19. Ressources développées" value="Parler devant les autres" /> Parler devant les autres</label><label><input type="checkbox" name="19. Ressources développées" value="Être dans un groupe" /> Être dans un groupe</label><label><input type="checkbox" name="19. Ressources développées" value="Oser créer" /> Oser créer</label><label><input type="checkbox" name="19. Ressources développées" value="Écouter les autres" /> Écouter les autres</label><label><input type="checkbox" name="19. Ressources développées" value="Dire ce que je ressens" /> Dire ce que je ressens</label><label><input type="checkbox" name="19. Ressources développées" value="Me calmer / me recentrer" /> Me calmer / me recentrer</label><label><input type="checkbox" name="19. Ressources développées" value="Me sentir légitime" /> Me sentir légitime</label><label><input type="checkbox" name="19. Ressources développées" value="Prendre ma place" /> Prendre ma place</label></div><input type="text" name="19. Autre ressource" placeholder="Autre..." /></div>
+        <div class="question"><div class="question-title">20. Est-ce que cette expérience a changé quelque chose dans votre vie quotidienne ?</div><div class="options"><label><input type="radio" name="20. Changement vie quotidienne" value="Oui" /> Oui</label><label><input type="radio" name="20. Changement vie quotidienne" value="Un peu" /> Un peu</label><label><input type="radio" name="20. Changement vie quotidienne" value="Non" /> Non</label><label><input type="radio" name="20. Changement vie quotidienne" value="Je ne sais pas" /> Je ne sais pas</label></div><textarea name="20. Quoi vie quotidienne" placeholder="Si oui, quoi ?"></textarea></div>
+      </section>
+
+      <section>
+        <h2>6. Rapport à la culture et aux lieux culturels</h2>
+        <div class="question"><div class="question-title">21. Le programme vous a-t-il donné envie d’aller davantage vers des lieux culturels ?</div><div class="options"><label><input type="radio" name="21. Envie lieux culturels" value="Oui" /> Oui</label><label><input type="radio" name="21. Envie lieux culturels" value="Un peu" /> Un peu</label><label><input type="radio" name="21. Envie lieux culturels" value="Non" /> Non</label><label><input type="radio" name="21. Envie lieux culturels" value="Je ne sais pas" /> Je ne sais pas</label></div></div>
+        <div class="question"><div class="question-title">22. Vous sentez-vous plus à l’aise dans des lieux comme un théâtre, un musée, une médiathèque ?</div><div class="options"><label><input type="radio" name="22. Aisance lieux culturels" value="Oui" /> Oui</label><label><input type="radio" name="22. Aisance lieux culturels" value="Un peu" /> Un peu</label><label><input type="radio" name="22. Aisance lieux culturels" value="Pas vraiment" /> Pas vraiment</label><label><input type="radio" name="22. Aisance lieux culturels" value="Non" /> Non</label><label><input type="radio" name="22. Aisance lieux culturels" value="Je ne sais pas" /> Je ne sais pas</label></div></div>
+        <div class="question"><div class="question-title">23. Les sorties, rencontres ou visites culturelles vous ont-elles apporté quelque chose ?</div><div class="options"><label><input type="radio" name="23. Apports sorties culturelles" value="Oui beaucoup" /> Oui beaucoup</label><label><input type="radio" name="23. Apports sorties culturelles" value="Oui un peu" /> Oui un peu</label><label><input type="radio" name="23. Apports sorties culturelles" value="Pas vraiment" /> Pas vraiment</label><label><input type="radio" name="23. Apports sorties culturelles" value="Non" /> Non</label><label><input type="radio" name="23. Apports sorties culturelles" value="Je ne sais pas" /> Je ne sais pas</label></div><textarea name="23. Ce que les sorties ont apporté" placeholder="Qu’est-ce que cela vous a apporté ?"></textarea></div>
+      </section>
+
+      <section>
+        <h2>7. Création collective et restitutions publiques</h2>
+        <div class="question"><label class="question-title" for="q24">24. Comment avez-vous vécu le fait de participer à une création collective ?</label><textarea id="q24" name="24. Création collective"></textarea></div>
+        <div class="question"><div class="question-title">25. Comment avez-vous vécu les 4 restitutions publiques ?</div><div class="options"><label><input type="radio" name="25. Vécu des 4 restitutions" value="Très bien" /> Très bien</label><label><input type="radio" name="25. Vécu des 4 restitutions" value="Bien" /> Bien</label><label><input type="radio" name="25. Vécu des 4 restitutions" value="Avec du stress mais aussi de la fierté" /> Avec du stress mais aussi de la fierté</label><label><input type="radio" name="25. Vécu des 4 restitutions" value="Difficilement" /> Difficilement</label><label><input type="radio" name="25. Vécu des 4 restitutions" value="Je n’ai pas participé à toutes les restitutions" /> Je n’ai pas participé à toutes les restitutions</label><label><input type="radio" name="25. Vécu des 4 restitutions" value="Je n’ai pas participé aux restitutions" /> Je n’ai pas participé aux restitutions</label><label><input type="radio" name="25. Vécu des 4 restitutions" value="Je ne sais pas" /> Je ne sais pas</label></div><textarea name="25. Explication restitutions" placeholder="Pouvez-vous expliquer en quelques mots ?"></textarea></div>
+        <div class="question"><div class="question-title">26. Est-ce que le fait de jouer plusieurs fois devant un public a changé quelque chose pour vous ?</div><div class="options"><label><input type="radio" name="26. Jouer plusieurs fois" value="Oui" /> Oui</label><label><input type="radio" name="26. Jouer plusieurs fois" value="Un peu" /> Un peu</label><label><input type="radio" name="26. Jouer plusieurs fois" value="Non" /> Non</label><label><input type="radio" name="26. Jouer plusieurs fois" value="Je ne sais pas" /> Je ne sais pas</label></div><textarea name="26. Ce que cela a changé" placeholder="Si oui, quoi ?"></textarea></div>
+        <div class="question"><label class="question-title" for="q27">27. De quoi êtes-vous fier·ère dans ce que vous avez fait pendant les restitutions ?</label><textarea id="q27" name="27. Fierté restitutions"></textarea></div>
+        <div class="question"><label class="question-title" for="q28">28. Qu’est-ce que vous avez osé faire que vous n’auriez peut-être pas osé avant ?</label><textarea id="q28" name="28. Ce qui a été osé"></textarea></div>
+      </section>
+
+      <section>
+        <h2>8. Accompagnement et cadre</h2>
+        <div class="question"><div class="question-title">29. Vous êtes-vous senti·e suffisamment accompagné·e pendant le programme ?</div><div class="options"><label><input type="radio" name="29. Accompagnement suffisant" value="Oui complètement" /> Oui complètement</label><label><input type="radio" name="29. Accompagnement suffisant" value="Plutôt oui" /> Plutôt oui</label><label><input type="radio" name="29. Accompagnement suffisant" value="Pas toujours" /> Pas toujours</label><label><input type="radio" name="29. Accompagnement suffisant" value="Non" /> Non</label><label><input type="radio" name="29. Accompagnement suffisant" value="Je ne sais pas" /> Je ne sais pas</label></div></div>
+        <div class="question"><div class="question-title">30. Le cadre proposé vous a-t-il semblé clair et sécurisant ?</div><div class="options"><label><input type="radio" name="30. Cadre clair sécurisant" value="Oui" /> Oui</label><label><input type="radio" name="30. Cadre clair sécurisant" value="Plutôt oui" /> Plutôt oui</label><label><input type="radio" name="30. Cadre clair sécurisant" value="Pas toujours" /> Pas toujours</label><label><input type="radio" name="30. Cadre clair sécurisant" value="Non" /> Non</label><label><input type="radio" name="30. Cadre clair sécurisant" value="Je ne sais pas" /> Je ne sais pas</label></div></div>
+        <div class="question"><label class="question-title" for="q31">31. Qu’est-ce qui vous a aidé·e à vous sentir en sécurité ?</label><textarea id="q31" name="31. Sécurité"></textarea></div>
+        <div class="question"><label class="question-title" for="q32">32. Qu’est-ce qui aurait pu être amélioré ?</label><textarea id="q32" name="32. Améliorations possibles"></textarea></div>
+      </section>
+
+      <section>
+        <h2>9. Bilan personnel</h2>
+        <div class="question">
+          <div class="question-title">33. Si vous deviez résumer En Scène en trois mots, lesquels choisiriez-vous ?</div>
+          <div class="three-words">
+            <input type="text" name="33. Mot 1" placeholder="Mot 1" />
+            <input type="text" name="33. Mot 2" placeholder="Mot 2" />
+            <input type="text" name="33. Mot 3" placeholder="Mot 3" />
+          </div>
+        </div>
+        <div class="question"><label class="question-title" for="q34">34. Aujourd’hui, avec quoi repartez-vous ?</label><textarea id="q34" name="34. Avec quoi je repars"></textarea></div>
+        <div class="question"><div class="question-title">35. Recommanderiez-vous ce programme à quelqu’un d’autre ?</div><div class="options"><label><input type="radio" name="35. Recommander" value="Oui" /> Oui</label><label><input type="radio" name="35. Recommander" value="Peut-être" /> Peut-être</label><label><input type="radio" name="35. Recommander" value="Non" /> Non</label><label><input type="radio" name="35. Recommander" value="Je ne sais pas" /> Je ne sais pas</label></div><textarea name="35. Pourquoi recommander" placeholder="Pourquoi ?"></textarea></div>
+        <div class="question"><label class="question-title" for="q36">36. Y a-t-il autre chose que vous aimeriez dire sur cette expérience ?</label><textarea id="q36" name="36. Autre chose à dire"></textarea></div>
+      </section>
+
+      <div class="submit-zone">
+        <button type="submit">Envoyer mes réponses</button>
+        <p class="small">Après l’envoi, vos réponses seront transmises via Formspree.</p>
+      </div>
+    </form>
+  </main>
+
+  <footer>
+    Programme En Scène — questionnaire de bilan qualitatif
+  </footer>
+</body>
+</html>
